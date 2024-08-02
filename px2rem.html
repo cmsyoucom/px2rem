@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>px2rem - px/rem互转工具 - 在线将rem响应式布局CSS自动将px转换为rem</title>
+<meta name="author" content="{name:'cmsyoucom',site:'github.com/cmsyoucom'}" />
+<meta name="Keywords" content="px2rem,px,rem,rem响应式布局,自动将px转换为rem,样式压缩,tgideas,px转换rem,在线工具" />
+<meta name="Description" content="px2rem在线转换px/rem互转工具，在线将rem响应式布局CSS自动将px转换为rem" />
+<link rel="stylesheet" href="https://game.gtimg.cn/images/css/bootstrap/3/bootstrap.min.css">
+<link rel="stylesheet" href="https://game.gtimg.cn/images/css/bootstrap/3/bootstrap-theme.min.css">
+<style type="text/css">
+/*当前页面样式*/
+.convert_option:after{content:'\20';display:block;height:0;clear:both;}
+body {font-family: "font-family:\5FAE\8F6F\96C5\9ED1;";}
+ul {list-style: none;padding-left:10px;}
+h4{margin-bottom:10px}
+.container{padding:10px 0 0;width:1000px}
+.alert-info{padding-left: 0}
+.alert-danger,.alert-success{position:fixed;top:0;left:0;width:100%;text-align:center; }
+textarea {width:100%;height:180px;padding:10px;}
+.convert_option{margin-top:20px}
+.convert_option li{float:left;margin-right:10px }
+.convert_option li .btn{vertical-align:middle;margin-top:-5px;}
+.convert_option li:nth-child(n+5){float:right}
+.panel{margin-bottom:30px}
+.btn-github{position:absolute;right:0;top:0;}
+</style>
+</head>
+<body>
+<a class="btn-github" href="https://github.com/cmsyoucom/px2rem" title="Fork me on GitHub" target="_blank"><svg height="32" aria-hidden="true" viewBox="0 0 24 24" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github v-align-middle color-fg-default"><path d="M12.5.75C6.146.75 1 5.896 1 12.25c0 5.089 3.292 9.387 7.863 10.91.575.101.79-.244.79-.546 0-.273-.014-1.178-.014-2.142-2.889.532-3.636-.704-3.866-1.35-.13-.331-.69-1.352-1.18-1.625-.402-.216-.977-.748-.014-.762.906-.014 1.553.834 1.769 1.179 1.035 1.74 2.688 1.25 3.349.948.1-.747.402-1.25.733-1.538-2.559-.287-5.232-1.279-5.232-5.678 0-1.25.445-2.285 1.178-3.09-.115-.288-.517-1.467.115-3.048 0 0 .963-.302 3.163 1.179.92-.259 1.897-.388 2.875-.388.977 0 1.955.13 2.875.388 2.2-1.495 3.162-1.179 3.162-1.179.633 1.581.23 2.76.115 3.048.733.805 1.179 1.825 1.179 3.09 0 4.413-2.688 5.39-5.247 5.678.417.36.776 1.05.776 2.128 0 1.538-.014 2.774-.014 3.162 0 .302.216.662.79.547C20.709 21.637 24 17.324 24 12.25 24 5.896 18.854.75 12.5.75Z"></path></svg></a>
+   <div class="alert alert-success" style="display:none"></div>
+   <div class="alert alert-danger" style="display:none">是不是点错转换按钮了？奴家找不到一个可以转换的数值单位 :( </div>
+
+<div class="container">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<span class="label label-primary">Px</span>/<span class="label label-primary">Rem</span> 互转工具（rem响应式布局: 自动将px转换为rem）
+		</div>
+   </div>
+   
+   <h4>转换前代码：</h4>
+   <textarea id="convert_before"></textarea>
+
+   <div class="alert alert-info  convert_option">
+	<ul>
+	 <li>转换方式：
+		<select id="designWidth">
+			<option value="200">200px = 1rem</option>
+			<option value="100" selected>100px = 1rem</option>
+			<option value="60">60px = 1rem</option>
+			<option value="50">50px = 1rem</option>
+			<option value="40">40px = 1rem</option>
+			<option value="25">25px = 1rem</option>
+			<option value="10">10px = 1rem</option>
+			<option value="5">5px = 1rem</option>
+			<option value="2">2px = 1rem</option>
+			<option value="1">1px = 1rem</option>
+		</select>
+	</li>
+	 
+	 
+	 <li><input type="radio" name="cssbeauty" checked  value="format"  class="cssbeauty"/>格式化样式</li>
+	 <li><input type="radio" name="cssbeauty" value="format" data-type="oneline" class="cssbeauty"/>格式化样式为横排</li>
+	 <li><input type="radio" name="cssbeauty" value="pack" class="cssbeauty"/>压缩样式</li>
+	 <li><button class="btn btn-danger convert_btn" data-type="px">Rem转Px</button></li>
+	 <li><button class="btn btn-primary convert_btn" data-type="rem">Px转Rem</button></li>
+
+	</ul>
+   </div>
+   <h4>转换后代码：</h4>
+   <textarea id="convert_done"></textarea>
+   <div class="footer">
+		<p>Copyright &copy; 2008-2024 <a href="http://www.cmsyou.com/" title="CMSYOU-内容管理系统CMS企业网站定制开发专家">CMSYOU (内容管理系统CMS企业网站定制开发专家)</a> www.cmsyou.com  All Rights Reserved.</p>
+   </div>
+</div>
+<script src="https://ossweb-img.qq.com/images/js/jquery/jquery-1.9.1.min.js" type="text/javascript"></script> 
+<script type="text/javascript">
+
+   var convertBeforeDom = $('#convert_before');
+   var convertDoneDom = $('#convert_done');
+   var convertBeforeVal = '';
+   var convertDoneVal = '';
+   var pxs = [];
+   var splitCach = [];
+   var errorDom = $('.alert-danger');
+   var successDom = $('.alert-success');
+   var CSS = $('.cssbeauty')
+   //填充本页样式
+   convertBeforeDom.html($.trim($('style')[0].innerHTML))
+   $('.convert_btn').click(function(){
+		 Px2Rem($(this).attr('data-type'));
+   });
+   function Px2Rem(toUnit) {
+		  
+		convertBeforeVal = convertBeforeDom.val();
+		if (toUnit == 'rem') {
+			pxs = convertBeforeVal.match(/\d+(?=px)px/g);
+		}else{
+			pxs = convertBeforeVal.match(/\d+(?=rem)rem/g);
+		};
+		convertDoneVal = '';
+		if (!pxs) { 
+			tips(errorDom);
+			return  
+		};
+		for(var i = 0; i < pxs.length; i++) {
+			  splitCach = convertBeforeVal.split(pxs[i]);
+			  convertDoneVal += splitCach[0];
+			  convertDoneVal += getConvertNum(pxs[i],toUnit);
+			  convertBeforeVal = convertBeforeVal.replace(splitCach[0],'').replace(pxs[i],'');
+		};
+		for (var i = 0; i < CSS.length; i++) {
+
+		   if (CSS[i].checked) {
+			  var cssFn = CSSBeauty[$(CSS[i]).attr('value')];
+			  convertDoneDom.val(cssFn.apply(null, [convertDoneVal+convertBeforeVal,$(CSS[i]).attr('data-type')]));
+		   };
+		};
+		if ($('#designWidth').val() == 750) {
+		  tips(successDom,'主人，转换任务已经全部达成 :p。再偷偷告诉你，如果设计稿是750px,可以直接1比1写wxss哦~');
+		}else{
+		   tips(successDom,'主人，转换任务已经全部达成 :p');
+		};
+		
+		
+
+	};
+	function getConvertNum(num,toUnit){
+		num = num.match(/\d+/g)[0];
+		dw = $('#designWidth').val();
+
+		if (toUnit == 'rem') {
+		   return parseFloat((num/dw).toFixed(2))+'rem';
+		}else{
+		   return parseFloat((num * dw).toFixed(2))+'px';
+		};
+	}
+	function tips(dom,text){
+		dom.stop().fadeIn('200');
+		if (text != undefined) {
+		   dom.html(text)
+		};
+	   
+		setTimeout(function(){if (dom.css('display') !== 'none'){dom.fadeOut('200')};},2000) ;
+	}
+
+	//格式化样式
+	 var CSSBeauty = {
+		format: function (s,oneline) {//格式化
+			s = s.replace(/\s*([\{\}\:\;\,])\s*/g, "$1");
+			s = s.replace(/;\s*;/g, ";"); //清除连续分号
+			s = s.replace(/\,[\s\.\#\d]*{/g, "{");
+			s = s.replace(/([^\s])\{([^\s])/g, "$1 {\n\t$2");
+			s = s.replace(/([^\s])\}([^\n]*)/g, "$1\n}\n$2");
+			s = s.replace(/([^\s]);([^\s\}])/g, "$1;\n\t$2");
+			if (oneline) {
+				s = s.replace(/(\r|\n|\t)/g, "");
+				s = s.replace(/(})/g, "$1\r\n");
+			};
+			return s;
+		},
+		pack: function (s) {//压缩
+			s = s.replace(/\/\*(.|\n)*?\*\//g, ""); //删除注释
+			s = s.replace(/\s*([\{\}\:\;\,])\s*/g, "$1");
+			s = s.replace(/\,[\s\.\#\d]*\{/g, "{"); //容错处理
+			s = s.replace(/;\s*;/g, ";"); //清除连续分号
+			s = s.match(/^\s*(\S+(\s+\S+)*)\s*$/); //去掉首尾空白
+			return (s == null) ? "" : s[1];
+		}
+	};
+//console
+console.log("\n%cPx/Rem互转换工具 \n%cTodo:批量转换","font-family:Consolas,Monaco,'Courier New',Helvetica;font-size:30px;color:#000;line-height:25px;","color:#333;line-height:30px")
+</script>
+</body>
+</html>
